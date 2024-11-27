@@ -49,7 +49,6 @@ function mensajeModal() {
     }
     
 }
-mensajeModal()
 
 function ganadorModal() {
     let link = ""
@@ -90,7 +89,7 @@ function limpiarTablero() {
     })
 }
 
-//limpiarTablero()
+limpiarTablero()
 restart.addEventListener('click', function(){
     limpiarTablero()
     score.innerText = 0
