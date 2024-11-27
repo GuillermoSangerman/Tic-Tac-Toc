@@ -25,11 +25,11 @@
       </div>
       <div class="gap-1 d-flex align-items-center rounded-2 turn">
         <svg class="icon">
-          <use xlink:href="./icons/icon-x.svg#icon-x"></use>
+          <use id="turnoDe" xlink:href="./icons/icon-x.svg#icon-x"></use>
         </svg>
         <span>TURN</span>
       </div>
-      <button id="#restart">
+      <button id="restart">
         <svg class="icon">
           <use xlink:href="./icons/icon-restart.svg#icon-restart"></use>
         </svg>
@@ -96,19 +96,19 @@
       <div class="col gx-3">
         <div class="d-flex flex-column align-items-center  rounded-3 py-2 score_item-x">
           <span>X (YOU)</span>
-          <span class="score">14</span>
+          <span id="score" class="score">14</span>
         </div>
       </div>
       <div class="col gx-3">
         <div class="d-flex flex-column align-items-center  rounded-3 py-2 score_item-ties ">
           <span>Ties</span>
-          <span class="score">32</span>
+          <span id="score1" class="score">32</span>
         </div>
       </div>
       <div class="col gx-3">
         <div class="d-flex flex-column align-items-center  rounded-3 py-2 score_item-o ">
           <span>O (CPU)</span>
-          <span class="score">11</span>
+          <span id="score2" class="score">11</span>
         </div>
       </div>
 
@@ -127,8 +127,8 @@
         <h2 class="text-white h1 m-0">TAKES THE ROUND</h2>
       </div>
       <div class="d-flex justify-content-center gap-3 pt-3 modal-action">
-        <button class="btn fw-bold py-2">Quit</button>
-        <button class="btn fw-bold py-2">NEXT ROUND</button>
+        <button id="quit" class="btn fw-bold py-2">Quit</button>
+        <button id="nextRound" class="btn fw-bold py-2">NEXT ROUND</button>
       </div>
     </div>
   </div>
