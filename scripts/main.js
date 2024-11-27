@@ -5,8 +5,9 @@ const score2 = document.querySelector('#score2')
 const quit = document.querySelector('#quit')
 const nextRound = document.querySelector('#nextRound')
 const modal = document.querySelector('.modal')
-const turno = document.querySelector('#turnoDe')
+const turno = document.querySelector('.turn')
 const boardItem = document.querySelectorAll('.board_item')
+
 let playerOne = true;
 for (let i = 0; i < boardItem.length; i++) {
    boardItem[i].addEventListener('click', jugadorQueMueve);
@@ -32,20 +33,51 @@ function jugadorQueMueve(e) {
             combinacionesAGanar(2, 4, 6);
     }
 }
-function combinacionesAGanar(columna1, columna2, columna3) {
-    if (boardItem[columna1].innerHTML.length && 
-        boardItem[columna1].innerHTML === boardItem[columna2].innerHTML && 
-        boardItem[columna2].innerHTML === boardItem[columna3].innerHTML) 
+function combinacionesAGanar(celda1, celda2, celda3) {
+    if (boardItem[celda1].innerHTML.length && 
+        boardItem[celda1].innerHTML === boardItem[celda2].innerHTML && 
+        boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) 
         {
-        ganador();
+        mensajeModal();
     }
 }
-function ganador() {
-    modal.classList.toggle('d-none') 
+function mensajeModal() {
+    if (boardItem === true) {
+        ganadorModal()
+    }else{
+        modal.classList.toggle('d-none')
+    }
+    
+}
+mensajeModal()
+
+function ganadorModal() {
+    let link = ""
+    if (boardItem === false) {
+        link = "./icons/icon-x.svg#icon-x"
+    }else{
+        link = "./icons/icon-o.svg#icon-o"
+    }
+        modal.innerHTML = ""
+        let modalX = `<div class="py-4 w-100 modal-content">
+      <h6 class="text-center text-white">YOU WON!</h6>
+      <div class="d-flex align-items-center gap-3 justify-content-center">
+        <svg class="winner" id="winner">
+          <!-- Change the icon by replacing the href with the winner's icon -->
+          <use xlink:href="${link}"></use>
+        </svg>
+        <h2 class="text-white h1 m-0">TAKES THE ROUND</h2>
+      </div>
+      <div class="d-flex justify-content-center gap-3 pt-3 modal-action">
+        <button id="quit" class="btn fw-bold py-2">Quit</button>
+        <button id="nextRound" class="btn fw-bold py-2">NEXT ROUND</button>
+      </div>
+    </div>`
+    modal.innerHTML = modalX
 }
 
 quit.addEventListener('click', function(){
-    ganador()
+    mensajeModal()
     limpiarTablero()
     score.innerText = 0
     score1.innerText = 0
@@ -53,13 +85,12 @@ quit.addEventListener('click', function(){
 })
 
 function limpiarTablero() {
-    for (let i = 0; i < boardItem.length; i++) {
-        boardItem[i].innerText = boardItem[i];
-
-    }
+    boardItem.forEach((element) => {
+        element.innerHTML = ""
+    })
 }
 
-// limpiarTablero()
+//limpiarTablero()
 restart.addEventListener('click', function(){
     limpiarTablero()
     score.innerText = 0
