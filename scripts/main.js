@@ -6,6 +6,7 @@
   const quit = document.querySelector('#quit')
   const nextRound = document.querySelector('#nextRound')
   const modal = document.querySelector('.modal')
+  const turn = document.querySelector('.turn .icon')
 
   const boardItem = document.querySelectorAll('.board_item')
 
@@ -50,9 +51,10 @@
   }
   const winnerIcon = document.getElementById("winner")
   function ganadorModal(ganador) {
-    modal.style = " display:block !important;"
+    modal.style = ` display:block !important;
+                    place-content: center !important;`
     if (ganador === false) {
-      document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-x.svg#icon-x"></use>`
+      document.querySelector('#winner use').innerHTML = `<use xlink:href="./icons/icon-x.svg#icon-x"></use>`
       score.X++;
       updateScores();
     } else if (ganador === true) {
@@ -63,10 +65,6 @@
      
     displayTie()
     }
-
-
-
-
   }
 
   quit.addEventListener('click', () => {
