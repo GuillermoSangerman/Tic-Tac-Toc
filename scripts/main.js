@@ -37,19 +37,20 @@
       combinacionesAGanar(0, 4, 8, playerOne);
       combinacionesAGanar(2, 4, 6, playerOne);
       
-    } 
+    }
   }
   function combinacionesAGanar(celda1, celda2, celda3, playerOne) {
     if (boardItem[celda1].innerHTML.length &&
       boardItem[celda1].innerHTML === boardItem[celda2].innerHTML &&
       boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) {
       ganadorModal(playerOne);
-      console.log("ganador :", celda1, celda2, celda3, playerOne);
-    }else if(boardItem){
-      console.log("hi");
       
-    }
+      console.log("ganador :", celda1, celda2, celda3, playerOne);
+    }if ([...boardItem].every(item => item.innerHTML.length)) {
+      displayTie(); 
+      
   }
+}
 
   function toggleModal() {
     modal.classList.toggle('d-none')
@@ -66,8 +67,6 @@
       document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
       score.O++;
       updateScores();
-    } else {
-      console.log("tie");
     }
   }
 
@@ -103,12 +102,16 @@
     scoreX.innerHTML = score.X;
     scoreO.innerHTML = score.O;
     scoreTies.innerHTML = score.ties;
+   console.log(scoreTies.innerHTML);
   };
-  const displayTie = () => {
-    modal.classList.remove("d-none");
-        winnerIcon.setAttribute("xlink:href", "./icons/icon-tie.svg#icon-tie");
-        document.querySelector(".modal h2").textContent = "IT'S A TIE!";
-        score.ties++;
-        updateScores();
-  };
+  function displayTie() { 
+   modal.style = ` display:block !important;
+                    place-content: center !important;`
+
+    winnerIcon.innerHTML = '';
+    document.querySelector('.modal h2').textContent = "IT'S A TIE!"; 
+    score.ties++; 
+    updateScores();
+    console.log(score.ties);
+  }
 
