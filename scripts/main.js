@@ -7,9 +7,10 @@
   const nextRound = document.querySelector('#nextRound')
   const modal = document.querySelector('.modal')
   const turn = document.querySelector('.turn .icon')
-
   const boardItem = document.querySelectorAll('.board_item')
-
+  scoreO.innerHTML = 0;
+  scoreX.innerHTML = 0;
+  scoreTies.innerHTML = 0;
   let playerOne = true;
   let score = { X: 0, O: 0, ties: 0 }
   for (let i = 0; i < boardItem.length; i++) {
@@ -41,7 +42,7 @@
       boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) {
       ganadorModal(playerOne);
       console.log("ganador :", celda1, celda2, celda3, playerOne);
-    }else{
+    }else if(!boardItem[celda1]){
       console.log("tie");
     }
   }
