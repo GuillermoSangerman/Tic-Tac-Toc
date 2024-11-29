@@ -106,9 +106,20 @@
   };
   function displayTie() { 
    modal.style = ` display:block !important;
-                    place-content: center !important;`
+                    place-content: center !important;
+                    text-align: center !important;
+                    `
 
     winnerIcon.innerHTML = '';
+    document.querySelector('.modal svg').style = "display:none !important";
+    document.querySelector('.modal h6').innerHTML = `<div class="d-flex gap-1 players justify-content-center">
+        <svg class="icon">
+          <use xlink:href="./icons/icon-x.svg#icon-x"></use>
+        </svg>
+        <svg class="icon">
+          <use xlink:href="./icons/icon-o.svg#icon-o"></use>
+        </svg>
+      </div>`;
     document.querySelector('.modal h2').textContent = "IT'S A TIE!"; 
     score.ties++; 
     updateScores();
