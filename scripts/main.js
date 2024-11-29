@@ -13,7 +13,7 @@
   scoreTies.innerHTML = 0;
   let playerOne = true;
   let score = { X: 0, O: 0, ties: 0 }
-  for (let i = 0; i < boardItem.length; i++) {
+  for (let i = 0; i < 9; i++) {
     boardItem[i].addEventListener('click', jugadorQueMueve);
   }
   function jugadorQueMueve(e) {
@@ -26,6 +26,8 @@
             <use xlink:href="./icons/icon-o.svg#icon-o"></use>
           </svg>`;
       playerOne = !playerOne;
+      turn.innerHTML = playerOne ? `<use xlink:href="./icons/icon-x.svg#icon-x"></use>` 
+      : `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
       combinacionesAGanar(0, 1, 2, playerOne);
       combinacionesAGanar(3, 4, 5, playerOne);
       combinacionesAGanar(6, 7, 8, playerOne);
@@ -34,7 +36,8 @@
       combinacionesAGanar(2, 5, 8, playerOne);
       combinacionesAGanar(0, 4, 8, playerOne);
       combinacionesAGanar(2, 4, 6, playerOne);
-    }
+      
+    } 
   }
   function combinacionesAGanar(celda1, celda2, celda3, playerOne) {
     if (boardItem[celda1].innerHTML.length &&
@@ -42,8 +45,9 @@
       boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) {
       ganadorModal(playerOne);
       console.log("ganador :", celda1, celda2, celda3, playerOne);
-    }else if(!boardItem[celda1]){
-      console.log("tie");
+    }else if(boardItem){
+      console.log("hi");
+      
     }
   }
 
@@ -63,8 +67,7 @@
       score.O++;
       updateScores();
     } else {
-     
-    displayTie()
+      console.log("tie");
     }
   }
 
