@@ -1,118 +1,127 @@
 
-  const restart = document.querySelector('#restart')
-  const scoreX = document.querySelector('#score')
-  const scoreTies = document.querySelector('#score1')
-  const scoreO = document.querySelector('#score2')
-  const quit = document.querySelector('#quit')
-  const nextRound = document.querySelector('#nextRound')
-  const modal = document.querySelector('.modal')
-  const turn = document.querySelector('.turn .icon')
-  const boardItem = document.querySelectorAll('.board_item')
-  scoreO.innerHTML = 0;
-  scoreX.innerHTML = 0;
-  scoreTies.innerHTML = 0;
-  let playerOne = true;
-  let score = { X: 0, O: 0, ties: 0 }
-  for (let i = 0; i < 9; i++) {
-    boardItem[i].addEventListener('click', jugadorQueMueve);
-  }
-  function jugadorQueMueve(e) {
-    let movimiento = e.target.innerHTML;
-    console.log(movimiento);
-    if (!movimiento.length) {
-      e.target.innerHTML = playerOne ? `<svg class="icon cross">
+const restart = document.querySelector('#restart')
+const scoreX = document.querySelector('#score')
+const scoreTies = document.querySelector('#score1')
+const scoreO = document.querySelector('#score2')
+const quit = document.querySelector('#quit')
+const nextRound = document.querySelector('#nextRound')
+const modal = document.querySelector('.modal')
+const turn = document.querySelector('.turn .icon')
+const boardItem = document.querySelectorAll('.board_item')
+scoreO.innerHTML = 0;
+scoreX.innerHTML = 0;
+scoreTies.innerHTML = 0;
+let playerOne = true;
+let score = { X: 0, O: 0, ties: 0 }
+for (let i = 0; i < 9; i++) {
+  boardItem[i].addEventListener('click', jugadorQueMueve);
+}
+function jugadorQueMueve(e) {
+  let movimiento = e.target.innerHTML;
+  console.log(movimiento);
+  if (!movimiento.length) {
+    e.target.innerHTML = playerOne ? `<svg class="icon cross">
             <use xlink:href="./icons/icon-x.svg#icon-x"></use>
           </svg>` : `<svg class="icon circle">
             <use xlink:href="./icons/icon-o.svg#icon-o"></use>
           </svg>`;
-      playerOne = !playerOne;
-      turn.innerHTML = playerOne ? `<use xlink:href="./icons/icon-x.svg#icon-x"></use>` 
+    playerOne = !playerOne;
+    turn.innerHTML = playerOne ? `<use xlink:href="./icons/icon-x.svg#icon-x"></use>`
       : `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
-      combinacionesAGanar(0, 1, 2, playerOne);
-      combinacionesAGanar(3, 4, 5, playerOne);
-      combinacionesAGanar(6, 7, 8, playerOne);
-      combinacionesAGanar(0, 3, 6, playerOne);
-      combinacionesAGanar(1, 4, 7, playerOne);
-      combinacionesAGanar(2, 5, 8, playerOne);
-      combinacionesAGanar(0, 4, 8, playerOne);
-      combinacionesAGanar(2, 4, 6, playerOne);
-      
+    combinacionesAGanar(0, 1, 2, playerOne);
+    combinacionesAGanar(3, 4, 5, playerOne);
+    combinacionesAGanar(6, 7, 8, playerOne);
+    combinacionesAGanar(0, 3, 6, playerOne);
+    combinacionesAGanar(1, 4, 7, playerOne);
+    combinacionesAGanar(2, 5, 8, playerOne);
+    combinacionesAGanar(0, 4, 8, playerOne);
+    combinacionesAGanar(2, 4, 6, playerOne);
+
+  }
+}
+function combinacionesAGanar(celda1, celda2, celda3, playerOne) {
+  if (boardItem[celda1].innerHTML.length &&
+    boardItem[celda1].innerHTML === boardItem[celda2].innerHTML &&
+    boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) {
+    ganadorModal(playerOne);
+  }
+  console.log("ganador :", celda1, celda2, celda3, playerOne);
+  let todasLasCeldas = true;
+  for (let i = 0; i < boardItem.length; i++) {
+    if (!boardItem[i].innerHTML.length) {
+      todasLasCeldas = false;
+      break;
     }
   }
-  function combinacionesAGanar(celda1, celda2, celda3, playerOne) {
-    if (boardItem[celda1].innerHTML.length &&
-      boardItem[celda1].innerHTML === boardItem[celda2].innerHTML &&
-      boardItem[celda2].innerHTML === boardItem[celda3].innerHTML) {
-      ganadorModal(playerOne);
-      
-      console.log("ganador :", celda1, celda2, celda3, playerOne);
-    }if ([...boardItem].every(item => item.innerHTML.length)) {
-      displayTie(); 
-      
+ if (todasLasCeldas) { 
+  displayTie(); 
+  return false
+}
+
+}
+
+function toggleModal() {
+  modal.classList.toggle('d-none')
+}
+const winnerIcon = document.getElementById("winner")
+function ganadorModal(ganador) {
+  modal.style = ` display:block !important;
+                    place-content: center !important;`
+  if (ganador === false) {
+    document.querySelector('#winner use').innerHTML = `<use xlink:href="./icons/icon-x.svg#icon-x"></use>`
+    score.X++;
+    updateScores();
+  } else if (ganador === true) {
+    document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
+    score.O++;
+    updateScores();
   }
 }
 
-  function toggleModal() {
-    modal.classList.toggle('d-none')
-  }
-  const winnerIcon = document.getElementById("winner")
-  function ganadorModal(ganador) {
-    modal.style = ` display:block !important;
-                    place-content: center !important;`
-    if (ganador === false) {
-      document.querySelector('#winner use').innerHTML = `<use xlink:href="./icons/icon-x.svg#icon-x"></use>`
-      score.X++;
-      updateScores();
-    } else if (ganador === true) {
-      document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
-      score.O++;
-      updateScores();
-    }
-  }
-
-  quit.addEventListener('click', () => {
-    modal.style = " display:none !important;"
-    toggleModal()
-    limpiarTablero()
-    scoreX.innerText = 0
-    scoreTies.innerText = 0
-    scoreO.innerText = 0
-  })
-
-  function limpiarTablero() {
-    boardItem.forEach((element) => {
-      element.innerHTML = ""
-    })
-  }
-
+quit.addEventListener('click', () => {
+  modal.style = " display:none !important;"
+  toggleModal()
   limpiarTablero()
-  restart.addEventListener('click', function () {
-    limpiarTablero()
-    scoreX.innerText = 0
-    scoreTies.innerText = 0
-    scoreO.innerText = 0
-  })
-  nextRound.addEventListener('click', () => {
-    modal.style = " display:none !important;"
-    limpiarTablero()
-  })
+  resetScores()
+})
 
+function limpiarTablero() {
+  boardItem.forEach((element) => {
+    element.innerHTML = ""
+  })
+}
 
-  const updateScores = () => {
-    scoreX.innerHTML = score.X;
-    scoreO.innerHTML = score.O;
-    scoreTies.innerHTML = score.ties;
-   console.log(scoreTies.innerHTML);
-  };
-  function displayTie() { 
-   modal.style = ` display:block !important;
+limpiarTablero()
+restart.addEventListener('click', function () {
+  limpiarTablero()
+  resetScores()
+})
+nextRound.addEventListener('click', () => {
+  modal.style = " display:none !important;"
+  limpiarTablero()
+})
+
+function resetScores() {
+  scoreX.innerText = '0';
+  scoreTies.innerText = '0';
+  scoreO.innerText = '0';
+  score = { X: 0, O: 0, ties: 0 };
+}
+const updateScores = () => {
+  scoreX.innerHTML = score.X;
+  scoreO.innerHTML = score.O;
+  scoreTies.innerHTML = score.ties;
+  console.log(scoreTies.innerHTML);
+};
+function displayTie() {
+  modal.style = ` display:block !important;
                     place-content: center !important;
                     text-align: center !important;
                     `
 
-    winnerIcon.innerHTML = '';
-    document.querySelector('.modal svg').style = "display:none !important";
-    document.querySelector('.modal h6').innerHTML = `<div class="d-flex gap-1 players justify-content-center">
+  winnerIcon.innerHTML = '';
+  document.querySelector('.modal svg').style = "display:none !important";
+  document.querySelector('.modal h6').innerHTML = `<div class="d-flex gap-1 players justify-content-center">
         <svg class="icon">
           <use xlink:href="./icons/icon-x.svg#icon-x"></use>
         </svg>
@@ -120,9 +129,9 @@
           <use xlink:href="./icons/icon-o.svg#icon-o"></use>
         </svg>
       </div>`;
-    document.querySelector('.modal h2').textContent = "IT'S A TIE!"; 
-    score.ties++; 
-    updateScores();
-    console.log(score.ties);
-  }
+  document.querySelector('.modal h2').textContent = "IT'S A TIE!";
+  score.ties++;
+  updateScores();
+  console.log(score.ties);
+}
 
