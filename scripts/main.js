@@ -68,7 +68,7 @@ function combinacionesAGanar(celda1, celda2, celda3, ganador) {
 }
 function ganadorModal(modalElGanador) {
   modal.style = ` display:block !important;
-                    place-content: center !important;`
+                  place-content: center !important;`
   if (modalElGanador === 0) {
     document.querySelector('.modal h6').textContent = "YOU WON!"; 
     document.querySelector('.modal h2').textContent = "TAKES THE ROUND"; 
@@ -122,5 +122,4 @@ const updateScores = () => {
   scoreX.innerHTML = score.X;
   scoreO.innerHTML = score.O;
   scoreTies.innerHTML = score.ties;
-
 };
