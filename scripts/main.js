@@ -79,7 +79,7 @@ function ganadorModal(modalElGanador) {
   } else if (modalElGanador === 1) {
     document.querySelector('.modal h6').textContent = "YOU WON!"; 
     document.querySelector('.modal h2').textContent = "TAKES THE ROUND"; 
-    document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-o.svg#icon-o"></use>`
+    document.querySelector('#winner').innerHTML = `<svg class="icon circle"><use xlink:href="./icons/icon-o.svg#icon-o"></use></svg>`
     score.O++;
     updateScores();
   }
@@ -87,8 +87,15 @@ function ganadorModal(modalElGanador) {
 function empate() {
     modal.style = ` display:block !important;
                     place-content: center !important;`
-    document.querySelector('.modal h2').textContent = "IT'S A TIE!"; 
-    document.querySelector('#winner').innerHTML = `<use xlink:href="./icons/icon-x.svg#icon-x"> <use xlink:href="./icons/icon-o.svg#icon-o"></use>`; 
+    document.querySelector('.modal h6').textContent = "IT'S A TIE!"; 
+    document.querySelector('#empates').innerHTML = ` <div class="d-flex gap-1 players">
+        <svg class="icon ">
+          <use xlink:href="./icons/icon-x.svg#icon-x"></use>
+        </svg>
+        <svg class="icon ">
+          <use xlink:href="./icons/icon-o.svg#icon-o"></use>
+        </svg>
+      </div>`; 
     score.ties++;
     updateScores()
   }
