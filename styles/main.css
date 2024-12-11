@@ -127,6 +127,11 @@ header>button>.icon {
     width: 3.5rem;
     height: 3.5rem;
 }
+.modal-content .winnerr {
+    fill: var(--yellow);
+    width: 3.5rem;
+    height: 3.5rem;
+}
 
 .modal-action>button:nth-child(1) {
     background-color: var(--off-white);
